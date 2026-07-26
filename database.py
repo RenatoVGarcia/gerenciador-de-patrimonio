@@ -9,7 +9,7 @@ class Database:
         return sqlite3.connect(self.db_name)
 
     def init_db(self):
-        """Inicializa a tabela de investimentos no SQLite."""
+        """Inicializa a tabela de investimentos no SQLite com suporte a Renda Fixa detalhada."""
         with self.get_connection() as conn:
             cursor = conn.cursor()
             cursor.execute("""
@@ -22,13 +22,16 @@ class Database:
                     total REAL NOT NULL,
                     taxa TEXT,
                     data_aporte TEXT NOT NULL,
-                    preco_atual REAL DEFAULT 0.0
+                    preco_atual REAL DEFAULT 0.0,
+                    indexador TEXT DEFAULT 'CDI',
+                    vencimento TEXT DEFAULT '',
+                    emissor TEXT DEFAULT ''
                 )
             """)
             conn.commit()
 
-    def adicionar_ou_atualizar(self, nome, tipo, quantidade_nova, preco_novo, taxa, data_aporte):
-        """Adiciona ou atualiza um ativo recalculando o Preço Médio."""
+    def adicionar_ou_atualizar(self, nome, tipo, quantidade_nova, preco_novo, taxa, data_aporte, indexador="CDI", vencimento="", emissor=""):
+        """Adiciona ou atualiza investimento recalculando o Preço Médio/Aporte Total."""
         with self.get_connection() as conn:
             cursor = conn.cursor()
             
@@ -43,20 +46,21 @@ class Database:
 
                 cursor.execute("""
                     UPDATE investimentos 
-                    SET quantidade = ?, preco_unitario = ?, total = ?, taxa = ?, data_aporte = ?, preco_atual = ?
+                    SET quantidade = ?, preco_unitario = ?, total = ?, taxa = ?, data_aporte = ?, 
+                        preco_atual = ?, indexador = ?, vencimento = ?, emissor = ?
                     WHERE id = ?
-                """, (nova_qtd, novo_preco_medio, novo_total, taxa, data_aporte, preco_novo, item_id))
+                """, (nova_qtd, novo_preco_medio, novo_total, taxa, data_aporte, preco_novo, indexador, vencimento, emissor, item_id))
             else:
                 total_novo = quantidade_nova * preco_novo
                 cursor.execute("""
-                    INSERT INTO investimentos (nome, tipo, quantidade, preco_unitario, total, taxa, data_aporte, preco_atual)
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-                """, (nome.strip(), tipo, quantidade_nova, preco_novo, total_novo, taxa, data_aporte, preco_novo))
+                    INSERT INTO investimentos (nome, tipo, quantidade, preco_unitario, total, taxa, data_aporte, preco_atual, indexador, vencimento, emissor)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """, (nome.strip(), tipo, quantidade_nova, preco_novo, total_novo, taxa, data_aporte, preco_novo, indexador, vencimento, emissor))
             
             conn.commit()
 
     def atualizar_preco_atual(self, item_id, preco_atual):
-        """Atualiza apenas a cotação de mercado atual de um ativo."""
+        """Atualiza apenas a cotação/valor atual de um ativo."""
         with self.get_connection() as conn:
             cursor = conn.cursor()
             cursor.execute("UPDATE investimentos SET preco_atual = ? WHERE id = ?", (preco_atual, item_id))
