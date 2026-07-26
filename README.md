@@ -91,7 +91,7 @@ python main.py
 ```
 
 ## 📂 Estrutura do Projeto
-
+```Plaintext
 gerenciador-de-patrimonio/
 │
 ├── database.py       # Gerenciamento das tabelas e conexões do SQLite
@@ -101,7 +101,7 @@ gerenciador-de-patrimonio/
 ├── main.py           # Ponto de entrada (script de inicialização)
 ├── requirements.txt  # Lista de dependências do projeto
 └── README.md         # Documentação do projeto
-
+``
 
 ## 📖 Como Usar
 
