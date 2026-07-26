@@ -1,6 +1,23 @@
 # 📈 Gerenciador de Carteira de Investimentos
 
+![Python](https://img.shields.io/badge/Python-3.8%2B-blue?style=for-the-badge&logo=python)
+![SQLite](https://img.shields.io/badge/SQLite-3-003B57?style=for-the-badge&logo=sqlite)
+![Tkinter](https://img.shields.io/badge/Tkinter-GUI-orange?style=for-the-badge)
+![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
+
 Um aplicativo desktop simples, moderno e completo em Python para acompanhamento de patrimônio, integrando ativos de **Renda Variável (Ações e FIIs)** com cotações da B3 e **Renda Fixa (CDBs, LCIs, LCAs, Tesouro Direto)** com rendimento diário automático e desconto de Imposto de Renda Regressivo.
+
+---
+
+## 📌 Sumário
+
+- [Funcionalidades](#-funcionalidades)
+- [Pré-requisitos](#-pré-requisitos)
+- [Instalação e Execução](#-instalação-e-execução)
+- [Estrutura do Projeto](#-estrutura-do-projeto)
+- [Como Usar](#-como-usar)
+- [Regras de Negócio e Tributação](#-regras-de-negócio-e-tributação)
+- [Licença](#-licença)
 
 ---
 
@@ -26,11 +43,19 @@ Um aplicativo desktop simples, moderno e completo em Python para acompanhamento 
 
 ---
 
-## 📂 Estrutura do Projeto
+## 📋 Pré-requisitos
 
-```text
-├── database.py       # Gerenciamento das tabelas e conexões do SQLite
-├── b3_service.py     # Integração/scraping de cotações da B3 (Ações e FIIs)
-├── bcb_service.py    # Consulta de Selic/CDI na API do Banco Central + Cálculo de IR
-├── gui.py            # Interface gráfica com Tkinter e regras de exibição
-└── main.py           # Ponto de entrada (script de inicialização)
+Antes de começar, você precisará das seguintes ferramentas instaladas em seu computador:
+
+- **[Python 3.8+](https://www.python.org/downloads/)**
+- **[Git](https://git-scm.com/)** *(opcional, para clonar o repositório)*
+- Conexão ativa com a **Internet** (necessária para atualização de cotações da B3 e dados do Banco Central).
+
+---
+
+## 📦 Instalação e Execução
+
+### 1. Clonar o Repositório
+```bash
+git clone [https://github.com/RenatoVGarcia/gerenciador-de-patrimonio.git](https://github.com/RenatoVGarcia/gerenciador-de-patrimonio.git)
+cd gerenciador-de-patrimonio
