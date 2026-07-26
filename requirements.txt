@@ -1,0 +1,10 @@
+# Integração HTTP e Consumo de APIs (Banco Central / B3)
+requests>=2.31.0
+urllib3>=2.0.0
+
+# Scraping e Parsing de Dados Financeiros
+beautifulsoup4>=4.12.0
+lxml>=5.1.0
+
+# Manipulação e Tratamento de Dados (Opcional, mas altamente recomendado)
+pandas>=2.0.0
